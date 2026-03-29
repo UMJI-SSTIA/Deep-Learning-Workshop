@@ -3,16 +3,28 @@ on:
   push:
     branches:
       - 2026
-  pull_request:
-    branches:
-      - 2026
-jobs: 
+
+jobs:
   deploy:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2 
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+        
       - uses: actions/setup-python@v2
         with:
           python-version: 3.x
+      
       - run: pip install -r requirements.txt
-      - run: mkdocs gh-deploy --force
+      
+      - name: build wibesite
+        run: mkdocs build
+      
+      - name: deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          keep_files: false
+          force_orphan: true

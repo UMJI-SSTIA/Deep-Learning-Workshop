@@ -1,0 +1,49 @@
+{% if page and page.meta and page.meta.discussions %}
+<section id="comments">
+    <hr>
+    <h2 id="__comments">Comments</h2>
+
+    <script src="https://giscus.app/client.js" id="giscus-script" data-repo="Trilobit-coder/deeplearning"
+        data-repo-id="R_kgDORxS8bA" data-category="Announcements" data-category-id="DIC_kwDORxS8bM4C5hZP"
+        data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0"
+        data-input-position="top" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async>
+        </script>
+
+    <script>
+        var giscus = document.querySelector("script[src*='giscus.app']")
+
+        function getGiscusTheme() {
+            var palette = document.body.getAttribute("data-md-color-scheme")
+            return (palette === "slate") ? "dark" : "light"
+        }
+
+        function updateGiscusTheme() {
+            var theme = getGiscusTheme()
+            var iframe = document.querySelector('iframe.giscus-frame')
+            if (iframe) {
+                iframe.contentWindow.postMessage(
+                    { giscus: { setConfig: { theme: theme } } },
+                    'https://giscus.app'
+                )
+            }
+        }
+
+        window.addEventListener('load', function () {
+            var palette = __md_get("__palette")
+            if (palette && palette.index !== undefined) {
+                updateGiscusTheme()
+            }
+
+            var observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                    if (mutation.type === "attributes" && mutation.attributeName === "data-md-color-scheme") {
+                        updateGiscusTheme()
+                    }
+                })
+            })
+
+            observer.observe(document.body, { attributes: true })
+        })
+    </script>
+</section>
+{% endif %}

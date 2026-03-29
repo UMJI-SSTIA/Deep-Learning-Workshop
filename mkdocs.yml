@@ -1,0 +1,86 @@
+site_name: "Deep Learning Workshop 2026"
+site_description: "The tutorial about deep learning for beginners"
+site_author: "sstia-trilobit"
+site_url: "https://UMJI-SSTIA.github.io/Deep-Learning-Workshop"
+repo_url: "https://github.com/UMJI-SSTIA/Deep-Learning-Workshop"
+repo_name: Deep-Learning-Workshop
+
+theme:
+  name: material
+  language: en
+  logo: assets/logo.png      
+  favicon: assets/favicon.png
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - content.code.copy
+  custom_dir: docs/overrides
+  palette:
+    # Light Mode: 
+    - scheme: default
+      primary: indigo     
+      accent: deep purple 
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+      media: "(prefers-color-scheme: light)" 
+
+    # Dark Mode:
+    - scheme: slate
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+      media: "(prefers-color-scheme: dark)"
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - admonition
+  - pymdownx.details
+  - pymdownx.arithmatex:
+      generic: true
+  - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - https://unpkg.com/giscus
+
+plugins:
+  - search:
+      lang: en
+  - minify:
+      minify_html: true
+  - mkdocs-video:
+      is_video: True
+
+nav:
+  - Home: index.md
+  - Part0:
+      - "Prequisite Knowledge": Part0/Prerequisite.md
+  - Part1:
+      - "KNN and Linear Classifier": Part1/Linear_Classifier.md
+      - "Convolutional Neural Network": Part1/CNN.md
+      - "Recurrent Neural Network": Part1/RNN.md

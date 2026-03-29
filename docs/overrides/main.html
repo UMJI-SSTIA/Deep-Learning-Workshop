@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+{{ super() }} {# This renders the actual Markdown content of your page #}
+
+{% include "comments.html" %} {# This pulls in your comment script #}
+{% endblock %}

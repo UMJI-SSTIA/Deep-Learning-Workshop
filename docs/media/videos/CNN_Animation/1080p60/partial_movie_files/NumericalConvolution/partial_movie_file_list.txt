@@ -1,0 +1,7 @@
+# This file is used internally by FFMPEG.
+file 'file:/home/trilobit/VScode/Python/Manim/workshop/media/videos/CNN_Animation/1080p60/partial_movie_files/NumericalConvolution/3544663784_1421960985_4153231542.mp4'
+file 'file:/home/trilobit/VScode/Python/Manim/workshop/media/videos/CNN_Animation/1080p60/partial_movie_files/NumericalConvolution/260329756_3141216713_2976977546.mp4'
+file 'file:/home/trilobit/VScode/Python/Manim/workshop/media/videos/CNN_Animation/1080p60/partial_movie_files/NumericalConvolution/260329756_4217992463_2887449167.mp4'
+file 'file:/home/trilobit/VScode/Python/Manim/workshop/media/videos/CNN_Animation/1080p60/partial_movie_files/NumericalConvolution/260329756_754831865_1506420256.mp4'
+file 'file:/home/trilobit/VScode/Python/Manim/workshop/media/videos/CNN_Animation/1080p60/partial_movie_files/NumericalConvolution/260329756_410611002_2979061435.mp4'
+file 'file:/home/trilobit/VScode/Python/Manim/workshop/media/videos/CNN_Animation/1080p60/partial_movie_files/NumericalConvolution/260329756_2844360058_1229991255.mp4'

@@ -20,6 +20,16 @@ If you want to do some coding yourself, you may need to have some knowledges abo
 
 ---
 
+## Mathematics
+
+This video about the complete mathematics of Neural Networks is very great. If you want to dive into the mathematics principle of Neural Networks, this video is highly recommanded. Also, this is not a strictly prerequisite knowledge, but something that you can explore in your leisure. So, don't know this part for the workshop is also fine.
+
+[![Mathematics](../media/images/mathForNN.png)](https://www.youtube.com/watch?v=Ixl3nykKG9M)
+
 ## References
 
+Adam Dhalla. "The Complete Mathematics of Neural Networks and Deep Learning." *YouTube*, 1 Mar. 2021, <https://www.youtube.com/watch?v=Ixl3nykKG9M>
+
 3Blue1Brown. "Linear Transformations and Matrices | Chapter 3, Essence of Linear Algebra." *Bilibili*, 27 Aug. 2016, <www.bilibili.com/video/BV1ns41167b9/>.
+
+SSTIA. "Python Workshop 2026." <https://github.com/UMJI-SSTIA/Python-Workshop-2026>

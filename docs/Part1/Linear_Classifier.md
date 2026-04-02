@@ -246,4 +246,4 @@ Have you noticed that it looks very much like a biological neuron?
 
 ## References
 
-Tendo, L. SSTIA Deep Learning Workshop 2025. Source: <https://github.com/UMJI-SSTIA/Deeplearning-wksp-2025/blob/main/Worksheet/Part1.html>
+Tendo, L. SSTIA Deep Learning Workshop 2025. Source: <https://github.com/UMJI-SSTIA/Deep-Learning-Workshop/blob/2025/Worksheet/Part1.html>

@@ -90,7 +90,7 @@ The magic happens in the sequence:
 ## 10\. Coding with Pytorch
 
 Pytorch is a common library for deep learning, so let's use Pytorch to really make a CNN model that can identify hand-written numbers from 0 to 9 (MNIST)
-> (Actually, I want to make a model that can identify cat, but a cat with 32x32 pixel is too abstract, and I find that identifying hand-written number can make a interactive window, which makes more fun. So, that's it)
+> (Actually, I find that identifying cat in 32x32 pixel is not pratical and hand-written number can make a interactive window, which makes more fun. So, that's it)
 
 Use Google Colab to run or edit the code. (Click the icon below)
 
@@ -213,4 +213,4 @@ model.eval()
 
 NeuralNine. "PyTorch Project: Handwritten Digit Recognition." *YouTube*, 22, Aug. 2023, <https://www.youtube.com/watch?v=vBlO87ZAiiw>.
 
-Evansia. "SSTIA Deep Learning Workshop 2025." Source: <https://github.com/UMJI-SSTIA/Deep-Learning-Workshop/blob/2025/Worksheet/Worksheet_Part2.md>
+SSTIA. "SSTIA Deep Learning Workshop 2025." Source: <https://github.com/UMJI-SSTIA/Deeplearning-wksp-2025/blob/main/Worksheet/Worksheet_Part2.md>

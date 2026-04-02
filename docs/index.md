@@ -21,7 +21,7 @@ We will have an exciting journey about deep learning and artificial intelligence
 The Workshop contains two part:
 
 - The first part is about the principle and mathematic.
-- The second part is about the ? (Actually I don't know what it is about).
+- The second part is about the VLA and PPO model, which will be held by the laboratory.
 
 Have fun!
 

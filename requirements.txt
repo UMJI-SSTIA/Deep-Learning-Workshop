@@ -2,7 +2,8 @@ mkdocs==1.6.1
 mkdocs-material==9.5.49
 mkdocs-minify-plugin==0.8.0
 pymdown-extensions==10.14.3
-mkdocs-video
+mkdocs-video>=1.5.0
+Pygments>=2.18.0
 mkdocs==1.6.1
 mkdocs-material==9.5.49
 

@@ -92,15 +92,11 @@ The magic happens in the sequence:
 Pytorch is a common library for deep learning, so let's use Pytorch to really make a CNN model that can identify hand-written numbers from 0 to 9 (MNIST)
 > (Actually, I want to make a model that can identify cat, but a cat with 32x32 pixel is too abstract, and I find that identifying hand-written number can make a interactive window, which makes more fun. So, that's it)
 
-Use Google Colab to run or edit the code.
+Use Google Colab to run or edit the code. (Click the icon below)
 
 <!-- Google Colab link -->
-<td align="center">
-  <a target="_blank" href="https://colab.research.google.com/github/UMJI-SSTIA/Deep-Learning-Workshop/blob/2026/model/MNIST.ipynb">
-    <img src="https://i.ibb.co/2P3SLwK/colab.png" width="110px" height="70px" style="padding-bottom:5px;" />
-    Run in Google Colab
-  </a>
-</td>
+[![Run in Google Colab](https://i.ibb.co/2P3SLwK/colab.png)](https://colab.research.google.com/github/UMJI-SSTIA/Deep-Learning-Workshop/blob/2026/model/MNIST.ipynb)
+{: .center }
 
 ### 10.1 Dependencies
 

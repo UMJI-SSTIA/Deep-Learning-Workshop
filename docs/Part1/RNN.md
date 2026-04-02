@@ -172,15 +172,11 @@ In an LSTM, the cell state update relies on addition. The gradient $\frac{\parti
 
 So, let's use LSTM to make a model that can generate shakespearean text with Pytorch.
 
-Use Google Colab to run or edit the code.
+Use Google Colab to run or edit the code. (Click the icon below)
 
 <!-- Google Colab link -->
-<td align="center">
-  <a target="_blank" href="https://colab.research.google.com/github/UMJI-SSTIA/Deep-Learning-Workshop/blob/2026/model/NanoShakespeare.ipynb">
-    <img src="https://i.ibb.co/2P3SLwK/colab.png" width="110px" height="70px" style="padding-bottom:5px;" />
-    Run in Google Colab
-  </a>
-</td>
+[![Run in Google Colab](https://i.ibb.co/2P3SLwK/colab.png)](https://colab.research.google.com/github/UMJI-SSTIA/Deep-Learning-Workshop/blob/2026/model/NanoShakespeare.ipynb)
+{: .center }
 
 ### 14.1 Dependencies
 

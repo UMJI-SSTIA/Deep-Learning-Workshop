@@ -73,8 +73,7 @@ plugins:
       lang: en
   - minify:
       minify_html: true
-  - mkdocs-video:
-      is_video: True
+  - mkdocs-video
 
 nav:
   - Home: index.md

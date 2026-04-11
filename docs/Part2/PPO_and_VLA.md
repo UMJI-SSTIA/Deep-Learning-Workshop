@@ -216,9 +216,9 @@ The algorithm flow is fully bound to the actual training process of humanoid rob
 4. **Value Network Update (Critic)**: Minimize the value function loss  $L^{VF}(\theta) = \mathbb{E}_t\left[ \left( V(s_t;\theta) - R_t \right)^2 \right]$  ( $R_t$  is the cumulative discounted return), update the value network (Critic) via gradient descent, improving the accuracy of state value estimation;
 5. **Iteration**: Repeat the above steps, update the old policy  $\pi_{\theta_{\text{old}}}$  to the new policy  $\pi_\theta$  after several updates, until the policy converges (the robot can stably complete the target task, such as bipedal walking, grasping, etc.).
 
-## Code
+### Code
 
-### **Actor-Critic**
+#### **Actor-Critic**
 
 ```
 # Define Actor-Critic Network
@@ -242,7 +242,7 @@ class ActorCritic(nn.Module):  # Define the Actor-Critic model
         return action_probs, state_value  # Return action probabilities and state value
 ```
 
-### **the class of Memory**
+#### **the class of Memory**
 
 ```
 # Memory to store experiences
@@ -262,7 +262,7 @@ class Memory:  # Class to store agent's experience
         self.is_terminals = []  # Clear terminal state flags
 ```
 
-### **PPO initialization**
+#### **PPO initialization**
 
 ```
 # PPO Agent
@@ -279,7 +279,7 @@ class PPO:  # Define the PPO agent
         self.K_epochs = K_epochs  # Number of epochs for optimization
 ```
 
-### **action selection**
+#### **action selection**
 
 ```
     def select_action(self, state, memory):
@@ -295,7 +295,7 @@ class PPO:  # Define the PPO agent
         return action.item()  # Return action as a scalar value
 ```
 
-### **policy update**
+#### **policy update**
 
 ```python
     def update(self, memory):
@@ -353,7 +353,7 @@ class PPO:  # Define the PPO agent
         self.policy_old.load_state_dict(self.policy.state_dict())  # Copy new policy parameters to old policy
 ```
 
-### main function
+#### main function
 
 ```
 # Hyperparameters

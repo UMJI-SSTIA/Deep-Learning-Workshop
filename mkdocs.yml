@@ -84,5 +84,7 @@ nav:
       - "KNN and Linear Classifier": Part1/Linear_Classifier.md
       - "Convolutional Neural Network": Part1/CNN.md
       - "Recurrent Neural Network": Part1/RNN.md
+  - Part2:
+      - "PPO and VLA": Part2/PPO_and_VLA.md
   - Supplement:
       - PyTorch vs TensorFlow: supplement/Torch_vs_tf.md

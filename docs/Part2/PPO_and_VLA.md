@@ -103,9 +103,9 @@ $$
 Q(s_t,a_t) \leftarrow Q(s_t,a_t) + \alpha [R_{t+1} + \gamma V(s_{t+1}) - Q(s_t,a_t)]
 $$
 
-  where TD target=$R_{t+1} + \gamma V(s_{t+1})  $,  $\alpha$  is the learning rate, balancing the update speed and stability.
+where TD target=$R_{t+1} + \gamma V(s_{t+1})$,  $\alpha$  is the learning rate, balancing the update speed and stability.
 
- The state value function and action value function can be converted to each other through the following core equations, which further reflect their recursive relationship:
+The state value function and action value function can be converted to each other through the following core equations, which further reflect their recursive relationship:
 
 $$
 V^\pi(s) = \mathbb{E}_{\pi(a|s)} \left[ Q^\pi(s,a) \mid S_t = s \right]
@@ -115,24 +115,22 @@ $$
 Q^\pi(s,a) = \mathbb{E}_{P(s'|s,a)} \left[ R(s,a,s') + \gamma V^\pi(s') \mid S_t = s, A_t = a \right]
 $$
 
- The first equation shows that the state value is the expected value of the action value under the current policy; the second equation combines the transition probability and discount factor, linking the action value to the immediate reward and the next state value.
+The first equation shows that the state value is the expected value of the action value under the current policy; the second equation combines the transition probability and discount factor, linking the action value to the immediate reward and the next state value.
 
 #### 3.1.2 Actor-Critic Framework (PPO Core Architecture)
 
-​ PPO adopts the Actor-Critic framework, which is equivalent to a "athlete + real-time referee" division of labor system, ensuring the stability and efficiency of PPO training for humanoid robots. The two components’ specific division of labor and cooperation in PPO are as follows:
+PPO adopts the Actor-Critic framework, which is equivalent to a "athlete + real-time referee" division of labor system, ensuring the stability and efficiency of PPO training for humanoid robots. The two components’ specific division of labor and cooperation in PPO are as follows:
 
 - **Actor (Policy Network)**: Parameter  $\theta$ , outputs the stochastic policy  $\pi_\theta(a|s)$ , which is responsible for selecting actions in the current state (e.g., determining the torque of each joint when the robot is walking). It is updated via gradient ascent to maximize the expected cumulative reward
 
-  $$
-  J(\theta) = \mathbb{E}_{\tau \sim \pi_\theta} \left[ \sum_{t=0}^{T-1} \gamma^t R_{t+1} \right]
-  $$
+$$
+J(\theta) = \mathbb{E}_{\tau \sim \pi_\theta} \left[ \sum_{t=0}^{T-1} \gamma^t R_{t+1} \right]
+$$
 
-  where $\tau = (s_0,a_0,R_1,s_1,...,s_T)$ is the interaction trajectory of the robot and the environment, and the trajectory distribution is
-  
-  $$
-  P(\tau|\theta) = P(s_0)\prod_{t=0}^{T-1} \pi_\theta(a_t|s_t) P(s_{t+1}|s_t,a_t)
-  $$
-  ​
+where $\tau = (s_0,a_0,R_1,s_1,...,s_T)$ is the interaction trajectory of the robot and the environment, and the trajectory distribution is
+
+$$P(\tau|\theta) = P(s_0)\prod_{t=0}^{T-1} \pi_\theta(a_t|s_t) P(s_{t+1}|s_t,a_t)$$
+
 We calculate the gradient of $J(\theta)$ with respect to $\theta$ via the **score function trick** $\nabla_\theta P(\tau|\theta) = P(\tau|\theta) \nabla_\theta \log P(\tau|\theta)$, and the derivation is as follows:
 
 $$\begin{aligned}
@@ -142,16 +140,17 @@ $$\begin{aligned}
 &= \mathbb{E}_{\tau\sim\pi_\theta} \left[ \sum_{t=0}^{T-1} \nabla_\theta \log\pi_\theta (a_t|s_t) \cdot G_t \right] \quad (G_t = \sum_{k=t}^{T-1}\gamma^{k-t}R_{k+1})
 \end{aligned}$$
 
-  ​       We finally get the **Policy Gradient Theorem**, the core formula for policy optimization:
+We finally get the **Policy Gradient Theorem**, the core formula for policy optimization:
 
-  $$
-  \nabla_\theta J(\theta) = \mathbb{E}_{\tau\sim\pi_\theta} \left[ \sum_{t=0}^{T-1} \nabla_\theta \log\pi_\theta(a_t|s_t) \cdot G_t \right]
-  $$
-  ​       We update the policy parameter $\theta$ via gradient ascent to maximize $J(\theta)$.
+$$
+\nabla_\theta J(\theta) = \mathbb{E}_{\tau\sim\pi_\theta} \left[ \sum_{t=0}^{T-1} \nabla_\theta \log\pi_\theta(a_t|s_t) \cdot G_t \right]
+$$
+
+We update the policy parameter $\theta$ via gradient ascent to maximize $J(\theta)$.
 
 - **Critic (Value Network)**: Parameter $w$, outputs the state value function $V(s;w)$, which acts as a "referee" to evaluate the quality of the actions selected by the Actor. It is updated via gradient descent to minimize the TD error, with its loss function: $L^{VF}(w) = \mathbb{E}_t\left[ \left( V(s_t;w) - R_t \right)^2 \right]$ (where $R_t$ is the cumulative discounted return), providing accurate value estimation for the Actor’s policy update.
 
-​ To further improve the stability of PPO training and avoid high variance in gradient estimation, PPO introduces the **Advantage Function** $A^\pi(s_t,a_t) = Q^\pi(s_t,a_t) - V^\pi(s_t)$ , which can be understood as the "net score of action"—it measures how much better the action  $a_t$  is than the average level of all actions in state  $s_t$ . In PPO, the Advantage Function replaces the $G_t = \sum_{k=t}^{T-1}\gamma^{k-t}R_{k+1}$ to update the Actor
+To further improve the stability of PPO training and avoid high variance in gradient estimation, PPO introduces the **Advantage Function** $A^\pi(s_t,a_t) = Q^\pi(s_t,a_t) - V^\pi(s_t)$ , which can be understood as the "net score of action"—it measures how much better the action  $a_t$  is than the average level of all actions in state  $s_t$ . In PPO, the Advantage Function replaces the $G_t = \sum_{k=t}^{T-1}\gamma^{k-t}R_{k+1}$ to update the Actor
 
 $$
 \nabla_\theta J(\theta) = \mathbb{E}_{\tau\sim\pi_\theta} \left[ \sum_{t=0}^{T-1} \nabla_\theta \log\pi_\theta(a_t|s_t) \cdot A^\pi(s_t,a_t)  \right]
@@ -161,9 +160,9 @@ effectively reducing gradient variance and avoiding joint control oscillation or
 
 #### 3.1.3 Importance Sampling (Key for PPO Sample Efficiency)
 
-​ Importance sampling is a core technology to improve the sample efficiency of PPO, which is crucial for reducing the training cost of high-dimensional humanoid robots. Its core role in PPO is to realize the reuse of a single batch of sampled data, avoiding the waste of interaction data.
+​Importance sampling is a core technology to improve the sample efficiency of PPO, which is crucial for reducing the training cost of high-dimensional humanoid robots. Its core role in PPO is to realize the reuse of a single batch of sampled data, avoiding the waste of interaction data.
 
-​ In PPO, importance sampling is embodied by the **probability ratio**
+​In PPO, importance sampling is embodied by the **probability ratio**
 
 $$
 r_t(\theta) = \frac{\pi_\theta(A_t|S_t)}{\pi_{\theta_{\text{old}}}(A_t|S_t)}
@@ -175,17 +174,17 @@ where:
 
 - $\pi_\theta$ : The new policy to be updated.
 
-​ This ratio reflects the difference between the new and old policies in selecting the action  $A_t$  under state $S_t$ . In PPO, it is embedded in the objective function to ensure that the new policy can be updated using the data sampled by the old policy, realizing multiple updates of a single batch of data and greatly improving sample efficiency—this is particularly important for humanoid robots, which require a huge amount of interaction data for training.
+​This ratio reflects the difference between the new and old policies in selecting the action  $A_t$  under state $S_t$ . In PPO, it is embedded in the objective function to ensure that the new policy can be updated using the data sampled by the old policy, realizing multiple updates of a single batch of data and greatly improving sample efficiency—this is particularly important for humanoid robots, which require a huge amount of interaction data for training.
 
 ### 3.2 PPO Algorithm Full Details (Humanoid Robot Exclusive)
 
 #### 3.2.1 Core Essence of PPO
 
-​ PPO (Proximal Policy Optimization) is an industrial standard policy optimization algorithm for humanoid robot control, whose core essence is to add a "two-way safety lock" to the policy update process. It solves the core pain points of humanoid robot training: avoiding policy collapse (abnormal actions leading to falling), ensuring stable joint control, and reducing training cost, which makes it the de facto standard algorithm for humanoid robot reinforcement learning.
+​PPO (Proximal Policy Optimization) is an industrial standard policy optimization algorithm for humanoid robot control, whose core essence is to add a "two-way safety lock" to the policy update process. It solves the core pain points of humanoid robot training: avoiding policy collapse (abnormal actions leading to falling), ensuring stable joint control, and reducing training cost, which makes it the de facto standard algorithm for humanoid robot reinforcement learning.
 
 #### 3.2.2 Core Objective Function (Clip Version, Industrial Standard)
 
-​ The core of PPO is its Clip objective function, which realizes the "safety lock" of policy update by limiting the update amplitude of the policy. Its physical meaning is to ensure that the new policy does not deviate too much from the old policy, avoiding excessive updates leading to training instability. The mathematical expression is:
+​The core of PPO is its Clip objective function, which realizes the "safety lock" of policy update by limiting the update amplitude of the policy. Its physical meaning is to ensure that the new policy does not deviate too much from the old policy, avoiding excessive updates leading to training instability. The mathematical expression is:
 
 $$
 L^{CLIP}(\theta) = \mathbb{E}_t\left[\min\left(r_t(\theta) A_t,\ \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon) A_t\right)\right]
@@ -458,7 +457,7 @@ Where the variables and operators are defined as follows:
 
 - Add&Norm: $\text{LayerNorm}(x+\text{MultiHeadAttention}(x))$
 
-​ The Transformer architecture is the core enabler of the VLA model’s powerful multimodal fusion and generalization capabilities. Unlike traditional modular systems that use independent models for each modality, the VLA model processes all modal tokens within a unified Transformer backbone, which guarantees end-to-end semantic, spatial, and temporal alignment across vision, language, and action. The self-attention mechanism of the Transformer allows the model to dynamically focus on task-critical information within each modality, for example, locating the target "red cup" in the visual input, extracting the core intent from the language instruction, and capturing the current motion limit of the robot arm from the proprioceptive state. Meanwhile, the cross-attention mechanism realizes bidirectional information interaction between different modalities, enabling the model to ground language semantics to visual spatial features, and map multimodal semantic understanding to robot action space—this is the core logic for the VLA model to achieve the "unity of perception, cognition and action".
+​The Transformer architecture is the core enabler of the VLA model’s powerful multimodal fusion and generalization capabilities. Unlike traditional modular systems that use independent models for each modality, the VLA model processes all modal tokens within a unified Transformer backbone, which guarantees end-to-end semantic, spatial, and temporal alignment across vision, language, and action. The self-attention mechanism of the Transformer allows the model to dynamically focus on task-critical information within each modality, for example, locating the target "red cup" in the visual input, extracting the core intent from the language instruction, and capturing the current motion limit of the robot arm from the proprioceptive state. Meanwhile, the cross-attention mechanism realizes bidirectional information interaction between different modalities, enabling the model to ground language semantics to visual spatial features, and map multimodal semantic understanding to robot action space—this is the core logic for the VLA model to achieve the "unity of perception, cognition and action".
 
 ### 4.2 Iterative Improvements of VLA Model: Representative Architectures and Principle Innovations
 
@@ -476,7 +475,7 @@ Where the variables and operators are defined as follows:
 
 ##### 1. Noisy Action Sample Construction
 
-​ Noisy samples for flow field learning are built by linear interpolation between ground-truth action sequences and random noise via the time index  $\tau$ , which provides supervision signals for ODE gradient fitting:
+​Noisy samples for flow field learning are built by linear interpolation between ground-truth action sequences and random noise via the time index  $\tau$ , which provides supervision signals for ODE gradient fitting:
 
 $$
 a_{t:t+H}^{\tau, \omega} = \tau \cdot a_{t:t+H} + (1-\tau) \cdot \omega
@@ -486,7 +485,7 @@ Where  $H$  is the action sequence length (fixed to 49~50 steps in π0.5 to meet
 
 ##### 2. Flow Matching Objective Function (ODE Gradient Fitting)
 
-​ The core objective of model training is to make the learned flow field infinitely close to the theoretical optimal gradient direction of the ODE, and the fitting is completed by minimizing the flow field prediction error:
+​The core objective of model training is to make the learned flow field infinitely close to the theoretical optimal gradient direction of the ODE, and the fitting is completed by minimizing the flow field prediction error:
 
 $$
 \mathcal{L}_{flow }=\mathbb{E}_{\mathcal{D}, \tau, \omega}\left| f_{\theta}\left(a_{t: t+H}^{\tau, \omega}, o_{t}, \ell\right) - (a_{t: t+H} - \omega) \right| ^{2}

@@ -89,13 +89,15 @@ $$
 
 1. **State Value Function** $V^\pi(s)$ : The expected cumulative reward obtained by the robot following the PPO policy  $\pi$  starting from state  $s$ . In PPO, it is used to evaluate the overall value of the current state, helping the robot judge whether the current motion state is beneficial to the long-term task (e.g., the expected cumulative reward of the robot in a stable standing state is higher than that in an unstable state).
 
-   The core logic of V value update in PPO is
+The core logic of V value update in PPO is
 
-   $$V^{\pi }(s)=\mathbb {E}_{\pi }\left[ R_{t+1}+\gamma V^{\pi }(S_{t+1}) | S_{t}=s\right]$$
+$$
+V^{\pi }(s)=\mathbb {E}_{\pi }\left[ R_{t+1}+\gamma V^{\pi }(S_{t+1}) | S_{t}=s\right]
+$$
 
-2. **Action Value Function** $Q^\pi(s,a)$ : The expected cumulative reward obtained by the robot taking action  $a$  in state  $s$  and then following the PPO policy  $\pi$ . In PPO, it directly reflects the quality of a specific action (e.g., adjusting the knee joint torque by a specific value in the standing state), and its update relies on Temporal Difference (TD) learning—the core rule is to update the Q value based on the immediate reward and the predicted value of the next state, ensuring that the robot can continuously learn the optimal action.
+1. **Action Value Function** $Q^\pi(s,a)$ : The expected cumulative reward obtained by the robot taking action  $a$  in state  $s$  and then following the PPO policy  $\pi$ . In PPO, it directly reflects the quality of a specific action (e.g., adjusting the knee joint torque by a specific value in the standing state), and its update relies on Temporal Difference (TD) learning—the core rule is to update the Q value based on the immediate reward and the predicted value of the next state, ensuring that the robot can continuously learn the optimal action.
 
-​ The core logic of Q value update in PPO (TD learning) is:  
+The core logic of Q value update in PPO (TD learning) is:  
 
 $$
 Q(s_t,a_t) \leftarrow Q(s_t,a_t) + \alpha [R_{t+1} + \gamma V(s_{t+1}) - Q(s_t,a_t)]

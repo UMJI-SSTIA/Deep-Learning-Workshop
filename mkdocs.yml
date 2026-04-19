@@ -86,5 +86,7 @@ nav:
       - "Recurrent Neural Network": Part1/RNN.md
   - Part2:
       - "PPO and VLA": Part2/PPO_and_VLA.md
+  - Part3:
+      - "One Example of Reinforcement Learning in Embodied AI: ASAP": Part3/ASAP_Setup_Guide.md
   - Supplement:
       - PyTorch vs TensorFlow: supplement/Torch_vs_tf.md

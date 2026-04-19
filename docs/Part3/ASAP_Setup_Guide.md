@@ -12,6 +12,7 @@
 > | Time | Name | Update |
 > |------| ---- |--------|
 > |2026/4/18| LKM | Add English version |
+> |2026/4/19| LKM | Add images |
 
 ---
 
@@ -500,6 +501,10 @@ python rl_policy/deepmimic_dec_loco_height.py \
   --mimic_model_paths=./models/mimic
 ```
 
+![初始状态 / Initial State](../media/images/Images4ASAP_guide/initial_state.png)
+
+初始状态 / Initial State
+
 #### 9.3 启动后的操作顺序
 #### Sequence of operations after startup
 
@@ -515,6 +520,15 @@ python rl_policy/deepmimic_dec_loco_height.py \
 
 4. 用 `w/a/s/d` 控制移动，`q/e` 控制转向 / Use `w/a/s/d` to control movement and `q/e` to control steering
 5. 按 `;` 或 `'` 切换动作，按 `[` 执行当前动作 / Press the `;` or `'` toggles the action, pressing `[` to execute the current action
+
+![正确释放安全绳 + 基本移动 / Realease the safety rope correctly + Basic move](../media/images/Images4ASAP_guide/first%20step+basic%20move.gif)
+
+正确释放安全绳 + 基本移动 / Realease the safety rope correctly + Basic move
+
+![科比后仰跳投1 / Kobe motion1](../media/images/Images4ASAP_guide/ASAP-Motion-Kobe.gif)
+![科比后仰跳投2 / Kobe motion2](../media/images/Images4ASAP_guide/kobe.gif)
+
+科比后仰跳投 / Kobe Motion
 
 详细按键说明见 [附录 A](#a-键盘控制说明)，可用动作列表见 [附录 B](#b-预训练动作列表)。/ See [Appendix A] for a detailed description of key presses and [Appendix B] for a list of available actions.
 
@@ -843,6 +857,10 @@ sudo apt-get install --reinstall libnvidia-gl-570
 
 正常现象，弹性带（安全绳）托住了机器人，机器人无法达成平衡，重新启动demo后记得释放安全绳。 / Normal phenomenon, elastic belt (safety rope) held the robot, the robot could not achieve balance, remember to release the safety rope after restarting demo.
 
+![错误示范1 / Error Example1](../media/images/Images4ASAP_guide/errorexample1.gif)
+
+错误示范 / Error Example
+
 #### C.8 wasd 无反应
 
 必须按正确顺序操作：先按 `]` 激活策略 → 再按 `=` 开启行走模式 → 然后 wasd 才会生效。 / It must be done in the correct order: `]` activates the policy → `=` activates the walking mode → and then wasd takes effect.
@@ -850,6 +868,10 @@ sudo apt-get install --reinstall libnvidia-gl-570
 #### C.9 释放安全绳后机器人直接瘫倒 / The robot collapsed directly after releasing the safety rope
 
 你没有先开启行走模式就释放了安全绳，请重新启动 demo，按照 [9.3 节](#93-启动后的操作顺序) 的顺序操作。 / You released the safety rope without first enabling walking mode. Restart the demo and follow the instructions in order.
+
+![错误示范2 / Error Example2](../media/images/Images4ASAP_guide/errorexample2.png)
+
+错误示范 / Error Example
 
 ---
 

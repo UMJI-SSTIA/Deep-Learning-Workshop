@@ -4,7 +4,12 @@
 >
 > 基于 UEFI + GPT 模式，已在联想拯救者 Y9000P 上验证通过。
 > 
-> Edited by LKM from SSTIA
+> Created by LKM from SSTIA, 2026/4/17
+
+> Update Log:
+> | Time | Name | Update |
+> |------| ---- |--------|
+> |2026/4/18| LKM | Add new Error examples |
 
 ---
 
@@ -16,7 +21,7 @@
 >
 > 如果操作得当，安装双系统**不会影响你现有的 Windows 系统和数据**。
 
-> 💡 **遇到问题？** 把完整报错信息贴给 ChatGPT/Claude 等 LLM，或在 CSDN、知乎搜索关键词，通常都能找到解决方案。
+> 💡 **遇到问题？** 把完整报错信息贴给 ChatGPT/DeepSeek 等 LLM，或在 GitHub、CSDN、知乎搜索关键词，通常都能找到解决方案。
 
 ---
 
@@ -333,7 +338,7 @@ sudo update-grub
 
 **连接 WiFi**：点击 Ubuntu 桌面右上角的系统托盘区域，选择 WiFi 网络并输入密码。
 
-**更换软件源为国内镜像**（可选）：
+**更换软件源为国内镜像（可选）**：
 
 ```bash
 sudo cp /etc/apt/sources.list.d/ubuntu.sources /etc/apt/sources.list.d/ubuntu.sources.bak
@@ -344,7 +349,7 @@ sudo apt update
 
 > Ubuntu 24.04 使用了新的 `sources.list.d/ubuntu.sources` 文件格式（DEB822），与旧版的 `sources.list` 不同。上述命令已适配新格式。如果你的系统使用的是旧格式，请搜索"Ubuntu 24.04 更换源"查找对应方法。
 
-**下载安装常用软件**：微信、飞书、Clash Verge等常用软件都有其 Ubuntu Linux 版本，你可以在浏览器中访问软件官网或者 GitHub，下载对应的 .deb 文件，在终端中运行`sudo dpkg -i <文件名称>.deb`完成安装。
+**下载安装常用软件**：[微信](https://linux.weixin.qq.com/en)、[飞书](https://www.feishu.cn/download)、[Clash Verge](https://github.com/clash-verge-rev/clash-verge-rev/releases)等常用软件都有其 Ubuntu Linux 版本，你可以在浏览器中访问软件官网或者 GitHub，下载对应的 `.deb` 文件，在终端中运行`sudo dpkg -i <文件名称>.deb`完成安装。
 
 ---
 
@@ -408,3 +413,11 @@ sudo reboot
 4. Windows 会以安全模式启动（这次不会蓝屏）
 5. 再次运行 `msconfig`，**取消勾选** 安全引导，确定
 6. 正常重启，AHCI 模式下的 Windows 即可正常使用
+
+### Q8：安装时卡在“你想如何安装Ubuntu”界面
+
+退出安装流程，按照以下顺序排查：
+
+1. 重启进 BIOS，检查 SATA 模式是否已改为 Intel RST
+2. 在U盘启动时，选择 Try Ubuntu （试用模式），在终端中输入`lsblk`。如果输出中看不到硬盘（比如`nvme0n1`等），说明安装器无法识别到硬盘，回到 Windows 系统中检查磁盘分区；如果没有问题，再次尝试桌面上安装图标
+3. 如果依然有同样的问题，尝试切换老版本 Ubuntu，例如 **`ubuntu-22.04.x-desktop-amd64.iso`** 

@@ -31,7 +31,7 @@
   - [1. 确认 BIOS 模式为 UEFI](#1-确认-bios-模式为-uefi)
   - [2. 确认磁盘分区格式为 GPT](#2-确认磁盘分区格式为-gpt)
   - [3. 关闭 BitLocker 加密](#3-关闭-bitlocker-加密)
-  - [4. 关闭 Windows 快速启动](#4-关闭-windows-快速启动)
+  - [4. 关闭 Windows 快速启动（可选）](#4-关闭-windows-快速启动可选)
   - [5. 为 Ubuntu 腾出磁盘空间](#5-为-ubuntu-腾出磁盘空间)
   - [6. 下载 Ubuntu 24.04 镜像](#6-下载-ubuntu-2404-镜像)
   - [7. 制作 USB 启动盘](#7-制作-usb-启动盘)
@@ -66,7 +66,13 @@ UEFI 是现代电脑的引导方式，双系统安装需要它。近几年的绝
 1. 按 `Win + R`，输入 `msinfo32`，回车
 2. 在"系统摘要"中找到 **BIOS 模式**，确认其值为 **UEFI**
 
-如果显示的是 **传统（Legacy）**，你需要进入 BIOS 将引导模式改为 UEFI。不同品牌进入 BIOS 的按键不同：
+如果显示的是 **传统（Legacy）**，你需要进入 BIOS 将引导模式改为 UEFI。
+
+![bios_mode](../media/images/Images4UbuntuDBoot_guide/bios_mode.png)
+
+BIOS 模式为 UEFI
+
+不同品牌进入 BIOS 的按键不同：
 
 | 品牌 | 进入 BIOS 的按键 |
 |------|-----------------|
@@ -94,9 +100,14 @@ GPT 是与 UEFI 配套的磁盘分区格式。如果不是 GPT，安装 Ubuntu �
 3. **右键点击最左侧的灰色磁盘标签**（写着"磁盘 0"的地方）→ 选择 **属性**
 4. 切换到 **卷** 选项卡，查看 **磁盘分区形式**
 
+![gpt](../media/images/Images4UbuntuDBoot_guide/gpt.png)
+![disk_gpt](../media/images/Images4UbuntuDBoot_guide/disk_gpt.png)
+
+磁盘分区格式为 GPT
+
 如果显示 **GUID 分区表 (GPT)**，则没问题，继续下一步。
 
-如果显示 **主启动记录 (MBR)**，需要转换为 GPT。这个操作较复杂，建议搜索"MBR 转 GPT 无损"寻找教程，或使用 Windows 自带的 `mbr2gpt` 工具。
+如果显示 **主启动记录 (MBR)**，需要转换为 GPT。这个操作较复杂，建议搜索["MBR 转 GPT 无损"](https://blog.csdn.net/weixin_42567279/article/details/160170087)寻找教程，或使用 Windows 自带的 `mbr2gpt` 工具。
 
 ---
 
@@ -112,21 +123,24 @@ BitLocker 是 Windows 的磁盘加密功能。如果不关闭，安装双系统�
    - 或者搜索 **"BitLocker"**，在控制面板中点击 **"关闭 BitLocker"**
 3. 如果没有 BitLocker 标识，跳过此步
 
+![bitlocker](../media/images/Images4UbuntuDBoot_guide/bitlocker.png)
+
+关闭 BitLocker
+
 > ⚠️ 关闭 BitLocker 解密过程可能需要较长时间（取决于磁盘数据量），建议接通电源后操作。
 
 ---
 
-### 4. 关闭 Windows 快速启动
+### 4. 关闭 Windows 快速启动（可选）
 
-Windows 的快速启动功能会在关机时将部分系统状态保存到磁盘，这可能导致 Ubuntu 无法正常访问 Windows 分区，甚至引发数据损坏。
+Windows 的快速启动功能会在关机时将部分系统状态保存到磁盘，这可能导致 Ubuntu 无法正常访问 Windows 分区。
+
+但是，如果关闭 Windows 快速启动，可能导致你现有的 WSL 安装失效，如果你希望能在 Windows 下使用 WSL ，请不要执行以下步骤。
 
 **操作步骤：**
 
-1. 打开 **控制面板 → 电源选项**（或搜索"电源选项"）
-2. 点击左侧 **"选择电源按钮的功能"**
-3. 点击上方 **"更改当前不可用的设置"**
-4. **取消勾选** "启用快速启动（推荐）"
-5. 点击 **保存修改**
+1. 按下 `Win + X`,然后按 `A` 打开管理员权限的 Powershell。
+2. 在 Powershell 中输入 `powercfg /h off`。
 
 ---
 
@@ -143,6 +157,10 @@ Windows 的快速启动功能会在关机时将部分系统状态保存到磁盘
    - **最少 60000 MB**（约 60GB）
    - **建议 100000-200000 MB**（100-200GB），尤其是后续要安装 CUDA、PyTorch、数据集等
 5. 点击 **压缩**
+
+![compress](../media/images/Images4UbuntuDBoot_guide/compress.png)
+
+压缩卷
 
 压缩完成后，磁盘管理中会出现一块 **"未分配"** 的黑色区域。这就是 Ubuntu 将要安装的位置。**不要对这块未分配空间做任何操作**（不要新建卷、不要格式化）。
 
